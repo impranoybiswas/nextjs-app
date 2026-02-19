@@ -1,54 +1,66 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-export async function OPTIONS() {
-  return NextResponse.json(
-    {
-      success: true,
-    },
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    }
-  );
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : [];
+
+function getCorsHeaders(origin: string | null): Record<string, string> {
+  return {
+    "Access-Control-Allow-Origin":
+      origin && allowedOrigins.includes(origin) ? origin : "",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new NextResponse(null, {
+    status: 200,
+    headers: getCorsHeaders(origin),
+  });
 }
 
 export async function POST(req: NextRequest) {
-  const { email, subject, text } = await req.json();
-
-  if (!email || !text || !subject) {
-    return new NextResponse(JSON.stringify({ success: false }), {
-      status: 400,
-    });
-  }
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS, 
-    },
-  });
-
-  const mailOptions = {
-    from: email,
-    to: process.env.EMAIL_RECEIVER,
-    subject,
-    text,
-
-    replyTo: email,
-  };
+  const origin = req.headers.get("origin");
+  const headers = getCorsHeaders(origin);
 
   try {
-    await transporter.sendMail(mailOptions);
-    return new NextResponse(JSON.stringify({ success: true }), { status: 200 });
+    const { name, email, subject, text } = await req.json();
+
+    if (!name || !email || !subject || !text) {
+      return new NextResponse(
+        JSON.stringify({ success: false, message: "Missing fields" }),
+        { status: 400, headers }
+      );
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER, // verified Gmail
+        pass: process.env.EMAIL_PASS, // App password
+      },
+    });
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER, // must be verified Gmail
+      to: process.env.EMAIL_RECEIVER,
+      subject,
+      text,
+      replyTo: email,
+    });
+
+    return new NextResponse(JSON.stringify({ success: true }), {
+      status: 200,
+      headers,
+    });
   } catch (error) {
     console.error("Email send error:", error);
-    return new NextResponse(JSON.stringify({ success: false, error }), {
-      status: 500,
-    });
+    return new NextResponse(
+      JSON.stringify({ success: false, message: "Server error", error }),
+      { status: 500, headers }
+    );
   }
 }
