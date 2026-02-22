@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
   const headers = getCorsHeaders(origin);
 
   try {
-    const { name, email, subject, text } = await req.json();
+    const { email, subject, text, html } = await req.json();
 
-    if (!name || !email || !subject || !text) {
+    if (!email || !subject) {
       return new NextResponse(
         JSON.stringify({ success: false, message: "Missing fields" }),
         { status: 400, headers }
@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
       to: process.env.EMAIL_RECEIVER,
       subject,
       text,
+      html,
       replyTo: email,
     });
 
