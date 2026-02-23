@@ -1,4 +1,4 @@
-import { getCollection } from "@/app/libs/connectDB";
+import { getCollection } from "./mongodb";
 
 export async function getUsersCollection() {
   const collection = await getCollection("users");
