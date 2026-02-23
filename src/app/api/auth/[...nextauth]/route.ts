@@ -1,8 +1,8 @@
 import { getUsersCollection } from "@/libs/collection";
-import NextAuth, { NextAuthConfig } from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions: NextAuthConfig = {
+export const authOptions: AuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -49,7 +49,6 @@ export const authOptions: NextAuthConfig = {
     // 🧩 2️⃣ Attach token fields to session
     async session({ session, token }) {
       if (token && session.user) {
-        session.user.id = token.id as string;
         session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.image = token.image as string;
