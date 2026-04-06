@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     headers: await headers(),
   });
 
-  // শুধু admin role change করতে পারবে
+  // admin role change only allowed for admin users
   if (!session || session.user.role !== "admin") {
     return Response.json({ error: "Unauthorized" }, { status: 403 });
   }

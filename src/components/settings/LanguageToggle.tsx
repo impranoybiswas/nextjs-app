@@ -22,7 +22,7 @@ export default function LanguageToggle() {
   };
 
   return (
-    <div className="flex items-center gap-2 px-4 py-3 rounded-lg border transition text-sm">
+    <div className="flex items-center gap-2 px-4 py-3 rounded-lg border border-foreground/10 transition text-sm">
       <span>Engish</span>
       <button
         onClick={toggleLanguage}

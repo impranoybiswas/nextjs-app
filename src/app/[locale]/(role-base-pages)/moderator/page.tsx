@@ -8,7 +8,10 @@ export default async function ModeratorPage() {
   });
 
   // Double check — middleware already করেছে, কিন্তু server side এও verify
-  if (!session || session.user.role !== "moderator" && session.user.role !== "admin") {
+  if (
+    !session ||
+    (session.user.role !== "moderator" && session.user.role !== "admin")
+  ) {
     redirect("/dashboard");
   }
 

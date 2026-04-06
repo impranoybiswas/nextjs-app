@@ -23,7 +23,8 @@ export const auth = betterAuth({
     sendOnSignUp: true,
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }) => {
-      await sendMail({                        // ✅ reusable mailer
+      await sendMail({
+        // ✅ reusable mailer
         to: user.email,
         subject: "Verify your email",
         html: verificationTemplate(user.name, url),
@@ -32,8 +33,8 @@ export const auth = betterAuth({
   },
 
   session: {
-    expiresIn: 60 * 60 * 24 * 7,   // 7 days
-    updateAge: 60 * 60 * 24,        // daily refresh
+    expiresIn: 60 * 60 * 24 * 7, // 7 days
+    updateAge: 60 * 60 * 24, // daily refresh
     cookieCache: {
       enabled: true,
       maxAge: 60 * 5,
@@ -54,8 +55,6 @@ export const auth = betterAuth({
     },
   },
 });
-
-
 
 export type Session = typeof auth.$Infer.Session;
 export type User = typeof auth.$Infer.Session.user;

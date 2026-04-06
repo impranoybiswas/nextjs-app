@@ -17,7 +17,7 @@ export default function ColorToggle() {
             className={`flex flex-col gap-2 p-3 rounded-lg border transition text-left ${
               isActive
                 ? "border-primary bg-primary/10"
-                : "border-border hover:bg-muted"
+                : "border-foreground/10 hover:bg-foreground/5"
             }`}
           >
             {/* Color swatches */}
@@ -25,7 +25,7 @@ export default function ColorToggle() {
               {c.palette.map((color: string) => (
                 <span
                   key={color}
-                  className="w-5 h-5 rounded-full border border-black/10"
+                  className="w-5 h-5 rounded-full border border-foreground/10"
                   style={{ background: color }}
                 />
               ))}

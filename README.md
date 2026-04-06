@@ -7,10 +7,12 @@ This is a Store App For Get Component Easily
 - component : SignInForm, SignUpForm, SignOutButton, GoogleSignInButton
 - api : api/auth/[...all]
 - library : auth, auth-client
+- env : NEXT_AUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 
 ## MongoDB
 - install : npm install mongodb
 - library : mongodb, collection
+- env : MONGODB_URI, DATABASE_NAME
 
 ## Theme Toggle
 - install : npm install next-themes
@@ -35,14 +37,20 @@ This is a Store App For Get Component Easily
 - component : FontToggle;
 - provider : FontProvider;
 
-
 ## Mailer
 - install : npm install nodemailer
 - component : sendMail
 - template : email-templates
 - api : api/mailer
+- env : EMAIL_HOST, EMAIL_PORT, EMAIL_USER, EMAIL_PASS
 
 ## Groq Chat Bot
 - install : npm install groq-sdk
 - component : GroqChatbot
 - api : api/groq-chat
+- env : GROQ_API_KEY
+
+## Generate PDF
+- install : npm install jsPDF, autoTable
+- component : FormToPDF
+- library : generate-pdf

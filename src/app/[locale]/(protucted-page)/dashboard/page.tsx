@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import type { UserRole } from "@/lib/auth";
 import { SignOutButton } from "@/components/auth/SignoutButton";
 
-
 // Role অনুযায়ী আলাদা UI component
 function AdminView({ name }: { name: string }) {
   return (

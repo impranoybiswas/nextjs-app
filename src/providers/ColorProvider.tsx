@@ -1,47 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTheme as useNextTheme } from "next-themes";
 import { ColorContext, ColorKey, colors } from "@/contexts/color-context";
 
 function getInitialColor(): ColorKey {
   if (typeof window === "undefined") return "default";
-  return (localStorage.getItem("app-color-name") as ColorKey) ?? "default";
+  return (localStorage.getItem("app-color-key") as ColorKey) ?? "default";
 }
 
 // Pure DOM updater
-function applyColorToDOM(key: ColorKey, isDark: boolean) {
+function applyColorToDOM(key: ColorKey) {
   const found = colors.find((c) => c.key === key);
   if (!found) return;
 
-  document.documentElement.style.setProperty(
-    "--primary",
-    isDark ? found.dark : found.light
-  );
+  document.documentElement.style.setProperty("--primary", found.primary);
 
-  document.documentElement.style.setProperty(
-    "--primary-foreground",
-    isDark ? "oklch(0.145 0 0)" : "oklch(0.985 0 0)"
-  );
+  document.documentElement.style.setProperty("--secondary", found.secondary);
+
+  document.documentElement.style.setProperty("--accent", found.accent);
 }
 
 export function ColorProvider({ children }: { children: React.ReactNode }) {
-  const [colorName, setColorState] = useState<ColorKey>(getInitialColor);
-  const { resolvedTheme } = useNextTheme();
-
-  const isDark = resolvedTheme === "dark";
+  const [colorKey, setColorState] = useState<ColorKey>(getInitialColor);
 
   useEffect(() => {
-    applyColorToDOM(colorName, isDark);
-  }, [colorName, isDark]);
+    applyColorToDOM(colorKey);
+  }, [colorKey]);
 
   const setColorName = (key: ColorKey) => {
-    localStorage.setItem("app-color-name", key);
+    localStorage.setItem("app-color-key", key);
     setColorState(key);
   };
 
   return (
-    <ColorContext.Provider value={{ colorName, setColorName }}>
+    <ColorContext.Provider value={{ colorName: colorKey, setColorName }}>
       {children}
     </ColorContext.Provider>
   );

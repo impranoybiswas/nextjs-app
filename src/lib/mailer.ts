@@ -16,7 +16,6 @@ type SendMailOptions = {
 };
 
 
-
 export async function sendMail({ to, subject, html }: SendMailOptions) {
   if (!to) throw new Error("Recipient email (to) is required");
 

@@ -14,7 +14,7 @@ export default function FontToggle() {
           className={`flex items-center justify-between px-4 py-3 rounded-lg border transition text-sm ${
             font === f.value
               ? "border-primary bg-primary/10 text-primary"
-              : "border-border hover:bg-muted"
+              : "border-foreground/10 hover:bg-foreground/5"
           }`}
         >
           <span style={{ fontFamily: f.value }}>{f.name}</span>

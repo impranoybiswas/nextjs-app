@@ -10,10 +10,10 @@ export default function AuthAppearance() {
       <h2 className="text-2xl font-bold">{t("title")}</h2>
       <p>{t("description")}</p>
       <div className="flex gap-4 items-center justify-center">
-        <Link href="/sign-in" className="btn-primary">
+        <Link href="/sign-in" className="btn btn-primary">
           {t("sign-in")}
         </Link>
-        <Link href="/sign-up" className="btn-primary">
+        <Link href="/sign-up" className="btn btn-primary">
           {t("sign-up")}
         </Link>
       </div>

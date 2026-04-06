@@ -8,6 +8,8 @@ import { ThemeToggle } from "@/components/settings/ThemeToggle";
 import LanguageToggle from "@/components/settings/LanguageToggle";
 import ContactForm from "@/components/mailer/ContactForm";
 import AuthAppearance from "@/components/auth/AuthAppearance";
+import FormToPDF from "@/components/pdf-generate/FormToPDF";
+
 
 export default function Home() {
   const t = useTranslations("home");
@@ -44,6 +46,9 @@ export default function Home() {
           <FontToggle />
         </div>
       </div>
+
+      {/* PDF Maker */}
+      <FormToPDF />
     </main>
   );
 }

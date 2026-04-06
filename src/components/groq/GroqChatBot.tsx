@@ -63,7 +63,7 @@ export default function GroqChatbot() {
   return (
     <div className="w-full space-y-4">
       {/* Chat messages */}
-      <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
+      <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4 space-y-4">
       
         {chat.map((msg, i) => (
           <div
@@ -74,8 +74,8 @@ export default function GroqChatbot() {
             <div
               className={`max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-primary text-primary-content rounded-tr-none"
-                  : "bg-base-100 text-base-content border border-base-content/8 rounded-tl-none"
+                  ? "bg-primary text-white rounded-tr-none"
+                  : "bg-foreground/5 text-foreground/80 border border-foreground/10 rounded-tl-none"
               }`}
             >
               {msg.text}
@@ -88,7 +88,7 @@ export default function GroqChatbot() {
         {loading && (
           <div className="flex gap-2">
             {botIcon}
-            <div className="bg-base-100 border border-base-content/8 rounded-2xl rounded-tl-none px-4 py-2.5 flex gap-1 items-center">
+            <div className="bg-foreground/5 text-foreground/80 border border-foreground/10 rounded-2xl rounded-tl-none px-4 py-2.5 flex gap-1 items-center">
               <span className="size-1.5 bg-primary/60 rounded-full animate-bounce [animation-delay:0ms]" />
               <span className="size-1.5 bg-primary/60 rounded-full animate-bounce [animation-delay:150ms]" />
               <span className="size-1.5 bg-primary/60 rounded-full animate-bounce [animation-delay:300ms]" />
@@ -99,7 +99,7 @@ export default function GroqChatbot() {
       </div>
 
       {/* Chat input */}
-      <div className="px-3 py-3 border-t border-base-content/8 bg-base-100 flex items-center gap-2">
+      <div className="px-3 py-3 border-t border-foreground/10 flex items-center gap-2">
       {/* Textarea with auto-resize */}
         <input
           value={message}

@@ -9,11 +9,7 @@ function getInitialFont(): FontValue {
   return (localStorage.getItem("app-font") as FontValue) ?? fonts[0].value;
 }
 
-export function FontProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function FontProvider({ children }: { children: React.ReactNode }) {
   const [font, setFontState] = useState<FontValue>(getInitialFont);
 
   const setFont = (newFont: FontValue) => {

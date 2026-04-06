@@ -19,7 +19,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-// Production এ নতুন Promise, Development এ cached
+// Global cache for development mode to avoid creating new connections on hot reloads
 const clientPromise: Promise<MongoClient> =
   process.env.NODE_ENV === "development"
     ? (global._mongoClient ??= client.connect())

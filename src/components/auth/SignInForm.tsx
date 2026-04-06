@@ -54,7 +54,7 @@ export default function SignInForm() {
         Sign In
       </button>
       <div className="my-4 text-center text-gray-400">or</div>
-            <GoogleSignInButton />
+      <GoogleSignInButton />
     </form>
   );
 }

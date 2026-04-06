@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
 import { SessionProvider } from "@/providers/SessionProvider";
-import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Locale, routing } from "@/i18n/routing";
@@ -37,7 +35,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={cn("font-sans", geist.variable)}>
+    <html lang={locale} className={geist.variable}>
       <body>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
@@ -48,10 +46,7 @@ export default async function LocaleLayout({
               storageKey="app-theme"
             >
               <ColorProvider>
-                <FontProvider>
-                  <Toaster />
-                  {children}
-                </FontProvider>
+                <FontProvider>{children}</FontProvider>
               </ColorProvider>
             </ThemeProvider>
           </NextIntlClientProvider>
