@@ -1,5 +1,6 @@
 import generatePDF from "@/lib/generate-pdf";
-import DynamicForm from "../dynamic/DynamicForm";
+import DynamicRow from "../dynamic/DynamicRow";
+import { useState, SubmitEvent } from "react";
 
 const inputs = [
   {
@@ -16,15 +17,34 @@ const values = {
   price: 0 as number,
 };
 
+export type RowData = Record<string, string | number>;
+
 export default function FormToPDF() {
-  const submitData = (data: Record<string, string | number>[]) => {
-    generatePDF({ values: data as Record<string, number>[] });
+  const [rowData, setRowData] = useState<RowData[]>([]);
+
+  const submitData = (e: SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const title = (
+      e.currentTarget.elements.namedItem("title") as HTMLInputElement
+    ).value;
+    console.log("Form Data : ", { title, rowData });
+    generatePDF({ values: rowData });
   };
+
   return (
     <div className="card">
-      <h2>Form to PDF</h2>
-      <p>Generate a PDF from form data using jsPDF and autoTable.</p>
-      <DynamicForm inputs={inputs} values={values} onSubmit={submitData} />
+      <form onSubmit={submitData} className="space-y-2">
+        <input
+          type="text"
+          name="title"
+          placeholder="Form Title"
+          className="input"
+        />
+        <DynamicRow inputs={inputs} values={values} onChange={setRowData} />
+        <button type="submit" className="btn btn-primary">
+          Generate PDF
+        </button>
+      </form>
     </div>
   );
 }

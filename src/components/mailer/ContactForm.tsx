@@ -34,7 +34,7 @@ export default function ContactForm() {
         name="message"
         placeholder="Message"
         required
-        className="input"
+        className="textarea"
       ></textarea>
       <button type="submit" className="btn btn-primary">Send Email</button>
     </form>

@@ -1,6 +1,5 @@
 import { signIn } from "@/lib/auth-client";
 import React from "react";
-import { toast } from "sonner";
 import GoogleSignInButton from "./GoogleSignInButton";
 
 export default function SignInForm() {
@@ -12,7 +11,7 @@ export default function SignInForm() {
       .value;
 
     if (!email || !password) {
-      toast.error("Email and password are required.");
+      alert("Email and password are required.");
       return;
     }
 
@@ -23,11 +22,11 @@ export default function SignInForm() {
     });
 
     if (error) {
-      toast.error("Sign in failed: " + error.message);
+      alert("Sign in failed: " + error.message);
       return;
     }
 
-    toast.success("Signed in successfully!");
+    alert("Signed in successfully!");
   };
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -46,7 +45,7 @@ export default function SignInForm() {
         className="input"
       />
 
-      <button onClick={() => toast("Forgot password flow not implemented")}>
+      <button onClick={() => alert("Forgot password flow not implemented")}>
         Forgot Password?
       </button>
 

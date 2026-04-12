@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,21 +45,30 @@
 }
 
 .btn {
-  @apply w-full py-2 rounded-lg flex items-center justify-center gap-2 cursor-pointer;
+  @apply h-10 px-3 text-sm rounded-lg flex items-center justify-center cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-200 ease-in-out;
 }
 
 .btn-primary {
-  @apply bg-primary text-white opacity-90 hover:opacity-100 transition-opacity duration-200 ease-in-out;
+  @apply bg-primary text-white;
 }
 
 .btn-secondary {
-  @apply bg-secondary text-white opacity-90 hover:opacity-100 transition-opacity duration-200 ease-in-out;
+  @apply bg-secondary text-white;
 }
 
 .btn-natural {
-  @apply bg-foreground/5 hover:bg-foreground/10 text-foreground opacity-90 hover:opacity-100 transition-opacity duration-500 ease-in-out;
+  @apply bg-foreground/5 hover:bg-foreground/10 text-foreground;
 }
 
+.btn-circular {
+  @apply rounded-full min-w-8 h-8 border border-foreground/20 p-0 flex items-center justify-center cursor-pointer opacity-75 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg font-light;
+}
+
+
 .input {
+  @apply w-full h-10 border border-foreground/10 py-2 px-3 rounded-lg bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:ring-primary focus:ring-1 focus:outline-none transition-colors duration-200 ease-in-out;
+}
+
+.textarea {
   @apply w-full border border-foreground/10 py-2 px-3 rounded-lg bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:ring-primary focus:ring-1 focus:outline-none transition-colors duration-200 ease-in-out;
 }

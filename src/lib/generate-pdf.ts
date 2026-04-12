@@ -1,3 +1,4 @@
+import { RowData } from "@/components/pdf-generate/FormToPDF";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -6,7 +7,7 @@ const doc = new jsPDF("portrait", "px", "a4");
 export default function generatePDF({
   values,
 }: {
-  values: Record<string, number>[];
+  values: RowData[];
 }) {
   const title = "Test PDF";
 
@@ -32,15 +33,18 @@ export default function generatePDF({
   autoTable(doc, {
     startY: currentY + 30,
     head: [["ID", "PRODUCT", "PRICE"]],
-    body: values.map((row, index) => [index + 1, row.product, parseFloat(row.price.toString()).toFixed(2)]),
+    body: values.map((row, index) => [
+      index + 1,
+      row.product,
+      parseFloat(row.price.toString()).toFixed(2),
+    ]),
     theme: "grid",
     styles: {
-        cellPadding: 8,
-        fontSize: 12,
-        overflow: "linebreak",
-      },
-    });
-    
+      cellPadding: 8,
+      fontSize: 12,
+      overflow: "linebreak",
+    },
+  });
 
   doc.save(`${title}.pdf` || "new-document.pdf");
 }

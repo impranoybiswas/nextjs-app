@@ -3,7 +3,6 @@
 import { signUp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { toast } from "sonner";
 import GoogleSignInButton from "./GoogleSignInButton";
 
 export default function SignUpForm() {
@@ -17,14 +16,14 @@ export default function SignUpForm() {
       .value;
 
     if (!email || !password) {
-      toast.error("Email and password are required.");
+      alert("Email and password are required.");
       return;
     }
 
     const { error } = await signUp.email({ name, email, password });
 
     if (error) {
-      toast.error("Sign up failed: " + error.message);
+      alert("Sign up failed: " + error.message);
       return;
     }
     router.push("/dashboard");

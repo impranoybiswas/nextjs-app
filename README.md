@@ -7,7 +7,7 @@ This is a Store App For Get Component Easily
 - component : SignInForm, SignUpForm, SignOutButton, GoogleSignInButton
 - api : api/auth/[...all]
 - library : auth, auth-client
-- env : NEXT_AUTH_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+- env : BETTER_AUTH_SECRET, NEXT_PUBLIC_APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 
 ## MongoDB
 - install : npm install mongodb
