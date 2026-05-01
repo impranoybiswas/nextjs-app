@@ -2,13 +2,12 @@ import { RowData } from "@/components/pdf-generate/FormToPDF";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 
-const doc = new jsPDF("portrait", "px", "a4");
-
 export default function generatePDF({
   values,
 }: {
   values: RowData[];
 }) {
+  const doc = new jsPDF("portrait", "px", "a4");
   const title = "Test PDF";
 
   const pageWidth = doc.internal.pageSize.getWidth();

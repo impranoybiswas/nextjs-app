@@ -54,3 +54,9 @@ This is a Store App For Get Component Easily
 - install : npm install jsPDF, autoTable
 - component : FormToPDF
 - library : generate-pdf
+
+## ImageKit Upload
+- install : npm install @imagekit/sdk
+- component : ImageUpload
+- hook : useImageKit
+- env : NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY, NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT, IMAGEKIT_PRIVATE_KEY

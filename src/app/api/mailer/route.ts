@@ -17,21 +17,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (type === "welcome") {
-      const { name, email } = data;
-      if (!name || !email) {
-        return NextResponse.json(
-          { error: "name and email are required for welcome email" },
-          { status: 400 },
-        );
-      }
-      await sendMail({
-        to: email,
-        subject: "Welcome to Our App!",
-        html: welcomeTemplate(name),
-      });
-    }
-
     switch (type as EmailType) {
       case "welcome": {
         const { name, email } = data;
