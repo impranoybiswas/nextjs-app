@@ -9,7 +9,8 @@ import LanguageToggle from "@/components/settings/LanguageToggle";
 import ContactForm from "@/components/mailer/ContactForm";
 import AuthAppearance from "@/components/auth/AuthAppearance";
 import FormToPDF from "@/components/pdf-generate/FormToPDF";
-import { ImageUpload } from "@/components/imagekit/ImageKitUpload";
+import { ImageKitUpload } from "@/components/imagekit/ImageKitUpload";
+import { toast } from "sonner";
 
 export default function Home() {
   const t = useTranslations("home");
@@ -54,11 +55,9 @@ export default function Home() {
       <div className="card">
         <h2>ImageKit Upload</h2>
         <p>Upload an image to ImageKit!</p>
-        <ImageUpload
+        <ImageKitUpload
           folder="test"
-          onUploadSuccess={() => {
-            alert("Image uploaded successfully!");
-          }}
+          onUploadSuccess={() => toast.success("Image uploaded successfully!")}
         />
       </div>
     </main>
