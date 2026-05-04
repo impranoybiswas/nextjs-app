@@ -14,6 +14,7 @@ import { toast } from "sonner";
 
 export default function Home() {
   const t = useTranslations("home");
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-5 max-w-lg mx-auto px-4 pt-10 pb-20">
       {/* Title */}

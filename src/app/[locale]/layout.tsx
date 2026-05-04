@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import { FontProvider } from "@/providers/FontProvider";
 import { ThemeProvider } from "next-themes";
 import { ColorProvider } from "@/providers/ColorProvider";
+import NavLink from "@/components/ui/NavLink";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -46,7 +47,14 @@ export default async function LocaleLayout({
               storageKey="app-theme"
             >
               <ColorProvider>
-                <FontProvider>{children}</FontProvider>
+                <FontProvider>
+                  <nav>
+                    <NavLink href={`/${locale}`}>Home</NavLink>
+                    <NavLink href={`/${locale}/about`}>About</NavLink>
+                    <NavLink href={`/${locale}/component`}>Component</NavLink>
+                  </nav>
+                  {children}
+                </FontProvider>
               </ColorProvider>
             </ThemeProvider>
           </NextIntlClientProvider>
