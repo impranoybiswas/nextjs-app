@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import "@/styles/animations.css";
 import { Geist } from "next/font/google";
 import { SessionProvider } from "@/providers/SessionProvider";
 import { NextIntlClientProvider } from "next-intl";
@@ -51,7 +52,7 @@ export default async function LocaleLayout({
                   <nav>
                     <NavLink href={`/${locale}`}>Home</NavLink>
                     <NavLink href={`/${locale}/about`}>About</NavLink>
-                    <NavLink href={`/${locale}/component`}>Component</NavLink>
+                    <NavLink href={`/${locale}/contact`}>Contact</NavLink>
                   </nav>
                   {children}
                 </FontProvider>

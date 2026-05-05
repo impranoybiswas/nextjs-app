@@ -11,6 +11,7 @@ import AuthAppearance from "@/components/auth/AuthAppearance";
 import FormToPDF from "@/components/pdf-generate/FormToPDF";
 import { ImageKitUpload } from "@/components/imagekit/ImageKitUpload";
 import { toast } from "sonner";
+import CustomComponent from "@/components/shared/CustomComponent";
 
 export default function Home() {
   const t = useTranslations("home");
@@ -61,6 +62,9 @@ export default function Home() {
           onUploadSuccess={() => toast.success("Image uploaded successfully!")}
         />
       </div>
+
+      {/* Custom Component */}
+      <CustomComponent />
     </main>
   );
 }
