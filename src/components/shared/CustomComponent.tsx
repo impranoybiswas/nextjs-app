@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+
 import Button from "@/components/ui/Button";
 import Drawer from "@/components/ui/Drawer";
 import Modal from "@/components/ui/Modal";
 import Dropdown from "@/components/ui/Dropdown";
-import { Crown, Heart, Sparkle, Star, Trash } from "lucide-react";
+import { ArrowRight, Crown, Heart, Sparkle, Star, Trash, User2 } from "lucide-react";
 
 export default function UIShowcasePage() {
   return (
@@ -59,6 +60,7 @@ function ModalSection() {
 // ================= BUTTONS =================
 //
 function ButtonSection() {
+  const [isLoved, setIsLoved] = useState(false);
   return (
     <div className="card space-y-4">
       <h2 className="text-xl font-semibold">Buttons</h2>
@@ -71,6 +73,22 @@ function ButtonSection() {
         <Button icon={<Heart />} variant="outline" isRounded size="sm" />
         <Button label="Saving..." isLoading variant="success" />
         <Button label="Legacy" isOutline isLarge />
+      </div>
+      <h1 className="text-xl font-semibold">Css Base Button</h1>
+      <div className="flex gap-4 flex-wrap">
+        <button className="btn btn-primary btn-hover-overlay ">Primary</button>
+        <button className="btn btn-secondary btn-hover-overlay">Secondary</button>
+        <button className="btn btn-gradient btn-hover-overlay">Gradient</button>
+        <button className="btn btn-natural btn-hover-overlay">Natural</button>
+        <button className="btn btn-danger btn-hover-overlay"><Trash size={16}/>Delete</button>
+        <button className="btn btn-success btn-hover-overlay">Success</button>
+        <button className="btn btn-warning btn-hover-overlay">Warning</button>
+        <button className="btn btn-info btn-hover-overlay">Details <ArrowRight size={16}/></button>
+        <button className="btn btn-light btn-hover-overlay">Light</button>
+        <button className="btn btn-dark btn-hover-overlay">Dark</button>
+        <button className="btn btn-outline btn-hover-overlay">Outline</button>
+        <button className="btn btn-circle btn-hover-overlay btn-natural"><User2 size={18}/></button>
+        <button onClick={() => setIsLoved(!isLoved)} className={`btn btn-circle btn-hover-overlay ${isLoved ? "btn-danger" : "btn-natural"}`}><Heart size={18}/></button>
       </div>
     </div>
   );

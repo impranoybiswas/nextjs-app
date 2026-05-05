@@ -6,7 +6,7 @@
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
-  --secondary: oklch(0.97 0 0);
+  --secondary: oklch(54.723% 0.22042 28.812);
   --accent: oklch(0.97 0 0);
 }
 
@@ -32,7 +32,7 @@
   }
 }
 
-/* custom */
+/* custom ui */
 .card {
   @apply p-4 rounded-xl bg-foreground/2 border border-foreground/10 shadow w-full;
 }
@@ -45,25 +45,64 @@
 }
 
 .btn {
-  @apply h-10 px-3 text-sm rounded-lg flex items-center justify-center cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50;
+  @apply h-11 px-4 flex items-center justify-center gap-2 relative overflow-hidden z-1 text-white transition-all duration-300 ease-in-out active:scale-98 hover:scale-101 rounded-xl shadow hover:shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-hover-overlay {
+  @apply after:absolute after:top-0 after:-left-10 after:w-10 after:h-10 hover:after:left-full after:rotate-25 after:scale-150 after:bg-linear-to-r after:via-white after:from-transparent after:to-transparent after:blur-sm after:opacity-30 after:transition-all after:duration-600 after:ease-in-out after:z-10;
 }
 
 .btn-primary {
-  @apply bg-primary text-white;
+  @apply bg-primary text-white hover:shadow-primary/20;
 }
 
 .btn-secondary {
-  @apply bg-secondary text-white;
+  @apply bg-secondary text-white hover:shadow-secondary/20;
+}
+
+.btn-gradient {
+  @apply bg-linear-to-r from-primary to-secondary text-white hover:shadow-secondary/20;
 }
 
 .btn-natural {
   @apply bg-foreground/5 hover:bg-foreground/10 text-foreground;
 }
 
-.btn-circular {
-  @apply rounded-full min-w-8 h-8 border border-foreground/20 p-0 flex items-center justify-center cursor-pointer opacity-75 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg font-light;
+.btn-danger {
+  @apply bg-red-500 text-white hover:shadow-red-500/20;
 }
 
+.btn-success {
+  @apply bg-green-500 text-white hover:shadow-green-500/20;
+}
+
+.btn-warning {
+  @apply bg-yellow-500 text-white hover:shadow-yellow-500/20;
+}
+
+.btn-info {
+  @apply bg-blue-500 text-white hover:shadow-blue-500/20;
+}
+
+.btn-light {
+  @apply bg-white text-black hover:shadow-white/20;
+}
+
+.btn-dark {
+  @apply bg-black text-white hover:shadow-black/20;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-primary/20 hover:border-primary/50 text-primary hover:bg-primary/20;
+}
+
+.btn-circle{
+  @apply rounded-full min-w-8 h-8 border border-primary/20 p-0 flex items-center justify-center cursor-pointer opacity-95 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg;
+}
+
+.btn-circular {
+  @apply rounded-full min-w-8 h-8 border border-primary/20 p-0 flex items-center justify-center cursor-pointer opacity-75 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg font-light;
+}
 
 .input {
   @apply w-full h-10 border border-foreground/10 py-2 px-3 rounded-lg bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:ring-primary focus:ring-1 focus:outline-none transition-colors duration-200 ease-in-out;
