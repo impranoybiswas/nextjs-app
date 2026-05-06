@@ -1,12 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "@/components/ui/Button";
 import Drawer from "@/components/ui/Drawer";
 import Modal from "@/components/ui/Modal";
 import Dropdown from "@/components/ui/Dropdown";
-import { ArrowRight, Crown, Heart, Sparkle, Star, Trash, User2 } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  CheckCircleIcon,
+  Crown,
+  Download,
+  Heart,
+  Loader2,
+  Sparkle,
+  Star,
+  Trash,
+  User2,
+} from "lucide-react";
 
 export default function UIShowcasePage() {
   return (
@@ -61,6 +73,17 @@ function ModalSection() {
 //
 function ButtonSection() {
   const [isLoved, setIsLoved] = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
+  useEffect(() => {
+    if (isDownloading) {
+      const timer = setTimeout(() => {
+        setIsDownloading(false);
+        setDownloaded(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [isDownloading]);
   return (
     <div className="card space-y-4">
       <h2 className="text-xl font-semibold">Buttons</h2>
@@ -77,18 +100,55 @@ function ButtonSection() {
       <h1 className="text-xl font-semibold">Css Base Button</h1>
       <div className="flex gap-4 flex-wrap">
         <button className="btn btn-primary btn-hover-overlay ">Primary</button>
-        <button className="btn btn-secondary btn-hover-overlay">Secondary</button>
+        <button className="btn btn-secondary btn-hover-overlay">
+          Secondary
+        </button>
         <button className="btn btn-gradient btn-hover-overlay">Gradient</button>
         <button className="btn btn-natural btn-hover-overlay">Natural</button>
-        <button className="btn btn-danger btn-hover-overlay"><Trash size={16}/>Delete</button>
+        <button className="btn btn-danger btn-hover-overlay">
+          <Trash size={16} />
+          Delete
+        </button>
         <button className="btn btn-success btn-hover-overlay">Success</button>
         <button className="btn btn-warning btn-hover-overlay">Warning</button>
-        <button className="btn btn-info btn-hover-overlay">Details <ArrowRight size={16}/></button>
+        <button className="btn btn-info btn-hover-overlay">
+          Details <ArrowRight size={16} />
+        </button>
         <button className="btn btn-light btn-hover-overlay">Light</button>
         <button className="btn btn-dark btn-hover-overlay">Dark</button>
         <button className="btn btn-outline btn-hover-overlay">Outline</button>
-        <button className="btn btn-circle btn-hover-overlay btn-natural"><User2 size={18}/></button>
-        <button onClick={() => setIsLoved(!isLoved)} className={`btn btn-circle btn-hover-overlay ${isLoved ? "btn-danger" : "btn-natural"}`}><Heart size={18}/></button>
+        <button className="btn btn-circle btn-hover-overlay btn-natural">
+          <User2 size={18} />
+        </button>
+        <button
+          onClick={() => setIsLoved(!isLoved)}
+          className={`btn btn-circle btn-hover-overlay ${isLoved ? "btn-danger" : "btn-natural"}`}
+        >
+          <Heart size={18} />
+        </button>
+        <button
+          onClick={() => {
+            if (downloaded) {
+              setDownloaded(false);
+            } else {
+              setIsDownloading(!isDownloading);
+            }
+          }}
+          className={`btn btn-hover-overlay ${downloaded ? "btn-success" : "btn-secondary"}`}
+        >
+          {isDownloading ? (
+            <Loader2 className="animate-spin" size={16} />
+          ) : downloaded ? (
+            <CheckCircleIcon size={16} />
+          ) : (
+            <Download size={16} />
+          )}
+          {isDownloading
+            ? "Downloading..."
+            : downloaded
+              ? "Downloaded"
+              : "Download"}
+        </button>
       </div>
     </div>
   );
