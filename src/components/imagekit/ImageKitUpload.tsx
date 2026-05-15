@@ -79,12 +79,7 @@ export function ImageKitUpload({
             type="file"
             onChange={handleChange}
             disabled={loading}
-            className="block text-sm text-base-content/50
-              file:mr-4 file:py-2 file:px-4
-              file:rounded-md file:border-0
-              file:text-sm file:font-semibold
-              file:bg-primary file:text-white
-              hover:file:bg-primary/90 transition-all"
+            className="flex text-sm text-base-content/50 file:h-11 file:w-fit file:flex-inline file:mr-2 file:items-center file:justify-center file:px-4 file:rounded-xl file:border-0 file:text-sm  file:bg-primary file:text-white file:active:scale-97 file:hover:scale-101 file:transition-all file:duration-300 file:ease-in-out hover:file:bg-primary/90 transition-all"
           />
         </div>
 

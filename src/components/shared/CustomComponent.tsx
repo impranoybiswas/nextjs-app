@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import { motion } from "motion/react";
 import Button from "@/components/ui/Button";
 import Drawer from "@/components/ui/Drawer";
 import Modal from "@/components/ui/Modal";
 import Dropdown from "@/components/ui/Dropdown";
 import {
   ArrowRight,
-  Check,
   CheckCircleIcon,
   Crown,
   Download,
@@ -19,6 +18,7 @@ import {
   Trash,
   User2,
 } from "lucide-react";
+import ToggleButton from "../ui/ToggleButton";
 
 export default function UIShowcasePage() {
   return (
@@ -96,10 +96,16 @@ function ButtonSection() {
         <Button icon={<Heart />} variant="outline" isRounded size="sm" />
         <Button label="Saving..." isLoading variant="success" />
         <Button label="Legacy" isOutline isLarge />
+        <ToggleButton isActive={isLoved} onClick={() => setIsLoved(!isLoved)} />
       </div>
       <h1 className="text-xl font-semibold">Css Base Button</h1>
       <div className="flex gap-4 flex-wrap">
-        <button className="btn btn-primary btn-hover-overlay ">Primary</button>
+        <motion.button
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          className="btn btn-primary btn-hover-overlay btn-ripple"
+        >
+          Primary
+        </motion.button>
         <button className="btn btn-secondary btn-hover-overlay">
           Secondary
         </button>
@@ -126,7 +132,8 @@ function ButtonSection() {
         >
           <Heart size={18} />
         </button>
-        <button
+        <motion.button
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
           onClick={() => {
             if (downloaded) {
               setDownloaded(false);
@@ -148,7 +155,7 @@ function ButtonSection() {
             : downloaded
               ? "Downloaded"
               : "Download"}
-        </button>
+        </motion.button>
       </div>
     </div>
   );
