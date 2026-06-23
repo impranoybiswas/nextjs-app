@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { MediaPlayer, MediaProvider, type MediaPlayerInstance } from "@vidstack/react";
+import {
+  MediaPlayer,
+  MediaProvider,
+  type MediaPlayerInstance,
+} from "@vidstack/react";
 import {
   defaultLayoutIcons,
   DefaultVideoLayout,
@@ -44,13 +48,13 @@ export default function VideoPlayer() {
   function handlePlay() {
     const trimmed = inputUrl.trim();
     if (!trimmed) {
-      setError("একটি URL দিন।");
+      setError("Please provide a valid URL.");
       return;
     }
     const type = detectVideoType(trimmed);
     if (!type) {
       setError(
-        "অচেনা URL। YouTube লিংক, .m3u8 বা .mp4/.webm লিংক দিন।"
+        "Unsupported URL format. Please use YouTube, M3U8, MP4, or WebM links.",
       );
       return;
     }
@@ -71,41 +75,51 @@ export default function VideoPlayer() {
   }
 
   return (
-    <div className="vp-wrapper">
-      {/* Input row */}
-      <div className="vp-input-row">
+    <div className="max-w-4xl mx-auto w-full my-8 px-4 font-sans selection:bg-indigo-500/30">
+      {/* Input section */}
+      <div className="flex gap-2 mb-4">
         <input
-          className="vp-input"
+          className="input flex-1"
           type="url"
-          placeholder="YouTube URL বা M3U8 / MP4 লিংক দিন…"
+          placeholder="Paste YouTube URL or M3U8 / MP4 link here..."
           value={inputUrl}
           onChange={(e) => setInputUrl(e.target.value)}
           onKeyDown={handleKeyDown}
           spellCheck={false}
         />
-        <button className="vp-btn" onClick={handlePlay}>
-          ▶ চালাও
+        <button className="btn btn-gradient" onClick={handlePlay}>
+          Play Video
         </button>
       </div>
 
-      {error && <p className="vp-error">{error}</p>}
+      {/* Error Feedback */}
+      {error && (
+        <p className="text-red-400 text-xs font-medium mb-3 transition-all animate-fadeIn">
+          {error}
+        </p>
+      )}
 
-      {/* Player area */}
-      <div className="vp-player-area">
+      {/* Player Frame Display */}
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden min-h-[420px] flex items-center justify-center transition-all duration-300 shadow-xl">
         {!activeUrl ? (
-          <div className="vp-empty">
-            <span className="vp-empty-icon">📺</span>
-            <p>কোনো ভিডিও নেই।</p>
-            <p className="vp-empty-hint">
-              উপরে YouTube লিংক বা M3U8/MP4 URL দিয়ে চালু করুন।
+          <div className="text-center text-slate-500 p-12 max-w-sm">
+            <span className="text-5xl block mb-3 animate-pulse filter drop-shadow-md">
+              📺
+            </span>
+            <p className="text-base font-semibold text-slate-400 mb-1">
+              No Video Loaded
+            </p>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Enter a stream source URL above to begin smooth streaming
+              playback.
             </p>
           </div>
         ) : (
           <MediaPlayer
             ref={playerRef}
-            src={buildSrc(activeUrl, videoType) as any}
+            src={buildSrc(activeUrl, videoType) as string}
             autoPlay
-            className="vp-media-player"
+            className="w-full aspect-video"
             title="Video Player"
           >
             <MediaProvider />
@@ -113,79 +127,6 @@ export default function VideoPlayer() {
           </MediaPlayer>
         )}
       </div>
-
-      <style>{`
-        .vp-wrapper {
-          font-family: 'Segoe UI', system-ui, sans-serif;
-          max-width: 860px;
-          margin: 2rem auto;
-          padding: 0 1rem;
-        }
-
-        .vp-input-row {
-          display: flex;
-          gap: 0.5rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .vp-input {
-          flex: 1;
-          padding: 0.65rem 1rem;
-          border: 2px solid #334155;
-          border-radius: 0.5rem;
-          background: #0f172a;
-          color: #f1f5f9;
-          font-size: 0.95rem;
-          outline: none;
-          transition: border-color 0.2s;
-        }
-        .vp-input::placeholder { color: #64748b; }
-        .vp-input:focus { border-color: #6366f1; }
-
-        .vp-btn {
-          padding: 0.65rem 1.4rem;
-          background: #6366f1;
-          color: #fff;
-          border: none;
-          border-radius: 0.5rem;
-          font-size: 0.95rem;
-          cursor: pointer;
-          white-space: nowrap;
-          transition: background 0.2s;
-        }
-        .vp-btn:hover { background: #4f46e5; }
-
-        .vp-error {
-          color: #f87171;
-          font-size: 0.85rem;
-          margin: 0 0 0.5rem;
-        }
-
-        .vp-player-area {
-          background: #0f172a;
-          border-radius: 0.75rem;
-          overflow: hidden;
-          min-height: 420px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid #1e293b;
-        }
-
-        .vp-media-player {
-          width: 100%;
-          aspect-ratio: 16/9;
-        }
-
-        .vp-empty {
-          text-align: center;
-          color: #64748b;
-          padding: 3rem;
-        }
-        .vp-empty-icon { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
-        .vp-empty p { margin: 0.25rem 0; font-size: 1.05rem; }
-        .vp-empty-hint { font-size: 0.85rem; color: #475569; margin-top: 0.5rem !important; }
-      `}</style>
     </div>
   );
 }

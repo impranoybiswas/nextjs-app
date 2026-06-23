@@ -1,12 +1,15 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   1. Dynamic Token Definitions (OKLCH Format)
+   ========================================================================== */
 @custom-variant dark (&:is(.dark *));
 
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
-  --secondary: oklch(54.723% 0.22042 28.812);
+  --secondary: oklch(0.547 0.220 28.812);
   --accent: oklch(0.97 0 0);
 }
 
@@ -18,6 +21,7 @@
   --accent: oklch(0.269 0 0);
 }
 
+/* Mapping inline configuration tokens directly to custom core variables */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -26,92 +30,120 @@
   --color-accent: var(--accent);
 }
 
+/* ==========================================================================
+   2. Base Elements Setup
+   ========================================================================== */
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased transition-colors duration-300;
   }
 }
 
-/* custom ui */
+/* ==========================================================================
+   3. Custom Layout & Core Components
+   ========================================================================== */
+
+/* --- Layout Cards --- */
 .card {
-  @apply p-4 rounded-xl bg-foreground/2 border border-foreground/10 shadow w-full;
+  @apply w-full p-6 rounded-xl bg-foreground/2 border border-foreground/10 shadow-xs flex flex-col backdrop-blur-md;
 }
 
 .card h2 {
-  @apply text-xl font-semibold text-center;
+  @apply text-xl font-semibold text-center tracking-tight text-foreground;
 }
+
 .card p {
-  @apply text-center text-foreground/60 text-sm mt-1 mb-6;
+  @apply text-center text-foreground/60 text-sm mt-1.5 mb-6 leading-relaxed;
 }
 
-.btn {
-  @apply h-11 px-4 flex items-center justify-center gap-2 relative overflow-hidden z-1 text-white transition-all duration-300 ease-in-out active:scale-97 hover:scale-101 rounded-xl shadow hover:shadow-md cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed;
-}
-
-.btn-ripple {
-  @apply before:absolute before:inset-0 before:z-100 before:bg-white/20 before:w-full before:h-full before:rounded-[inherit] before:opacity-0 active:before:opacity-100 active:before:animate-[ripple_0.6s_ease-out];
-}
-
-.btn-hover-overlay {
-  @apply after:absolute after:top-0 after:-left-10 after:w-10 after:h-10 hover:after:left-full after:rotate-25 after:scale-150 after:bg-linear-to-r after:via-white after:from-transparent after:to-transparent after:blur-sm after:opacity-30 after:transition-all after:duration-600 after:ease-in-out after:z-10;
-}
-
-.btn-primary {
-  @apply bg-primary text-white hover:shadow-primary/20;
-}
-
-.btn-secondary {
-  @apply bg-secondary text-white hover:shadow-secondary/20;
-}
-
-.btn-gradient {
-  @apply bg-linear-to-r from-primary to-secondary text-white hover:shadow-secondary/20;
-}
-
-.btn-natural {
-  @apply bg-foreground/5 hover:bg-foreground/10 text-foreground;
-}
-
-.btn-danger {
-  @apply bg-red-500 text-white hover:shadow-red-500/20;
-}
-
-.btn-success {
-  @apply bg-green-500 text-white hover:shadow-green-500/20;
-}
-
-.btn-warning {
-  @apply bg-yellow-500 text-white hover:shadow-yellow-500/20;
-}
-
-.btn-info {
-  @apply bg-blue-500 text-white hover:shadow-blue-500/20;
-}
-
-.btn-light {
-  @apply bg-white text-black hover:shadow-white/20;
-}
-
-.btn-dark {
-  @apply bg-black text-white hover:shadow-black/20;
-}
-
-.btn-outline {
-  @apply bg-transparent border border-primary/20 hover:border-primary/50 text-primary hover:bg-primary/20;
-}
-
-.btn-circle {
-  @apply rounded-full min-w-8 h-8 border border-primary/20 p-0 flex items-center justify-center cursor-pointer opacity-95 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg;
-}
-
-.btn-circular {
-  @apply rounded-full min-w-8 h-8 border border-primary/20 p-0 flex items-center justify-center cursor-pointer opacity-75 hover:opacity-100 transition-opacity duration-200 ease-in-out text-lg font-light;
-}
-
+/* --- Interactive Input Fields --- */
 .input {
-  @apply w-full h-10 border border-foreground/10 py-2 px-3 rounded-lg bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:ring-primary focus:ring-1 focus:outline-none transition-colors duration-200 ease-in-out;
+  @apply w-full h-11 px-3.5 py-2 rounded-xl bg-foreground/4 border border-foreground/10 text-foreground placeholder:text-foreground/40 text-sm transition-all duration-200 focus:bg-background focus:border-primary/50 focus:outline-hidden focus:ring-2 focus:ring-primary/20;
 }
 
 .textarea {
-  @apply w-full border border-foreground/10 py-2 px-3 rounded-lg bg-foreground/5 text-foreground placeholder:text-foreground/40 focus:ring-primary focus:ring-1 focus:outline-none transition-colors duration-200 ease-in-out;
+  @apply w-full min-h-[100px] px-3.5 py-2.5 rounded-xl bg-foreground/4 border border-foreground/10 text-foreground placeholder:text-foreground/40 text-sm transition-all duration-200 focus:bg-background focus:border-primary/50 focus:outline-hidden focus:ring-2 focus:ring-primary/20 resize-y;
+}
+
+/* ==========================================================================
+   4. Global Button Blueprint (.btn)
+   ========================================================================== */
+
+/* Universal Button Architecture */
+.btn {
+  @apply h-11 px-5 flex items-center justify-center gap-2 relative overflow-hidden z-1 rounded-xl text-sm font-medium select-none shadow-xs cursor-pointer transition-all duration-300 ease-in-out hover:scale-102 active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+}
+
+/* --- Interactive Micro-effects --- */
+
+/* Click-triggered active scaling ripple effect */
+.btn-ripple {
+  @apply before:absolute before:inset-0 before:z-0 before:bg-white/20 before:rounded-[inherit] before:opacity-0 active:before:opacity-100 active:before:animate-[ripple_0.6s_ease-out];
+}
+
+/* Glossy diagonal shine animation overlay on hover */
+.btn-hover-overlay {
+  @apply after:absolute after:top-0 after:-left-16 after:w-12 after:h-full after:bg-linear-to-r after:from-transparent after:via-white/25 after:to-transparent after:skew-x-25 after:transition-all after:duration-500 hover:after:left-[120%];
+}
+
+/* --- Button Theming Variants --- */
+.btn-primary {
+  @apply bg-primary text-background hover:shadow-lg hover:shadow-primary/15;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white hover:shadow-lg hover:shadow-secondary/15;
+}
+
+.btn-gradient {
+  @apply bg-linear-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-secondary/20;
+}
+
+.btn-natural {
+  @apply bg-foreground/5 hover:bg-foreground/10 text-foreground shadow-none;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:shadow-lg hover:shadow-red-500/15;
+}
+
+.btn-success {
+  @apply bg-emerald-500 text-white hover:shadow-lg hover:shadow-emerald-500/15;
+}
+
+.btn-warning {
+  @apply bg-amber-500 text-white hover:shadow-lg hover:shadow-amber-500/15;
+}
+
+.btn-info {
+  @apply bg-sky-500 text-white hover:shadow-lg hover:shadow-sky-500/15;
+}
+
+.btn-light {
+  @apply bg-white text-black border border-gray-200 hover:bg-gray-50;
+}
+
+.btn-dark {
+  @apply bg-black text-white hover:bg-neutral-900;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-primary/20 text-primary hover:bg-primary hover:text-background hover:border-primary;
+}
+
+/* --- Icon & Circular Utility Actions --- */
+.btn-circle {
+  @apply w-10 h-10 p-0 rounded-full border border-foreground/10 flex items-center justify-center bg-background text-foreground hover:bg-foreground/5 active:scale-95 transition-all;
+}
+
+.btn-circular {
+  @apply w-8 h-8 p-0 rounded-full border border-foreground/10 flex items-center justify-center bg-background text-foreground opacity-75 hover:opacity-100 font-light text-xs transition-opacity;
+}
+
+/* ==========================================================================
+   5. Keyframe Animations
+   ========================================================================== */
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 0.5; }
+  100% { transform: scale(2.5); opacity: 0; }
 }
