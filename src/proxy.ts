@@ -62,7 +62,7 @@ export async function proxy(request: NextRequest) {
   const path = getPathnameWithoutLocale(pathname);
   const isLoggedIn = !!getSessionCookie(request);
 
-  // Auth routes → logged in হলে dashboard এ পাঠাও
+  // Auth routes → logged in user go to dashboard
   if (routeConfig.authRoutes.some((r) => path.startsWith(r))) {
     if (isLoggedIn) {
       return NextResponse.redirect(new URL("/dashboard", origin));
@@ -70,7 +70,7 @@ export async function proxy(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  // Protected routes → logged in না হলে sign-in এ পাঠাও
+  // Protected routes → logged in user go to sign-in
   if (routeConfig.protected.some((r) => path.startsWith(r))) {
     if (!isLoggedIn) {
       return NextResponse.redirect(new URL("/sign-in", origin));
@@ -78,7 +78,7 @@ export async function proxy(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  // Admin / Moderator routes → role check করো
+  // Admin / Moderator routes → role check
   const isAdminRoute = routeConfig.adminOnly.some((r) => path.startsWith(r));
   const isModRoute = routeConfig.moderatorAndAbove.some((r) =>
     path.startsWith(r),

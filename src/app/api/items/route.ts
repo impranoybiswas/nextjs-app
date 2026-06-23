@@ -9,7 +9,7 @@ const ItemSchema = z.object({
     (val) => Number(val),
     z.number().min(0, "Price must be positive"),
   ),
-  description: z.string().max(5).optional().default(""),
+  description: z.string().max(500).optional().default(""),
 });
 
 export async function GET() {
