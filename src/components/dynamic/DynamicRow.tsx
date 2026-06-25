@@ -59,7 +59,7 @@ export default function DynamicRow({
             <button
               type="button"
               onClick={() => handleRemoveField(index)}
-              className="btn-circular bg-red-600 text-white"
+              className="btn-circle bg-red-500 text-white"
             >
               -
             </button>
@@ -69,7 +69,7 @@ export default function DynamicRow({
             <button
               type="button"
               onClick={handleAddField}
-              className="btn-circular bg-green-600 text-white"
+              className="btn-circle bg-green-500 text-white "
             >
               +
             </button>

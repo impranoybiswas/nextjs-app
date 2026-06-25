@@ -60,3 +60,15 @@ This is a Store App For Get Component Easily
 - component : ImageUpload
 - hook : useImageKit
 - env : NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY, NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT, IMAGEKIT_PRIVATE_KEY
+
+
+## Video Player
+- install : npm i @vidstack/react@next
+- component : VideoPlayer
+
+## Google Sheet
+- install : npm install google-spreadsheet, npm install google-auth-library
+- component : GoogleSheetForm
+- library : google-sheet
+- env : GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEET_ID
+

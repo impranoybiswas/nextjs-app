@@ -67,7 +67,7 @@ export function ImageKitUpload({
 
   return (
     <div
-      className={`flex w-full flex-col gap-4 ${className} border shadow border-base-300 rounded-md p-3`}
+      className={`flex w-full flex-col gap-4 ${className} border shadow border-foreground/10 rounded-xl p-4`}
     >
       <div className="flex items-center justify-between">
         {/* Input */}

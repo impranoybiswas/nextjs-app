@@ -1,7 +1,7 @@
 export default function ContactForm() {
   const handleSendEmail = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
@@ -28,8 +28,20 @@ export default function ContactForm() {
   };
   return (
     <form onSubmit={handleSendEmail} className="space-y-2">
-      <input type="text" name="name" placeholder="Name" required className="input" />
-      <input type="email" name="email" placeholder="Email" required className="input" />
+      <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        required
+        className="input"
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        required
+        className="input"
+      />
       <textarea
         rows={3}
         name="message"
@@ -37,7 +49,9 @@ export default function ContactForm() {
         required
         className="textarea"
       ></textarea>
-      <button type="submit" className="btn btn-primary">Send Email</button>
+      <button type="submit" className="btn btn-primary">
+        Send Email
+      </button>
     </form>
   );
 }

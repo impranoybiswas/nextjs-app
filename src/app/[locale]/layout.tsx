@@ -37,7 +37,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={geist.variable}>
+    <html lang={locale} className={geist.variable} suppressHydrationWarning={false} suppressContentEditableWarning={false}>
       <body>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
@@ -49,8 +49,10 @@ export default async function LocaleLayout({
             >
               <ColorProvider>
                 <FontProvider>
-                  <Navbar />
-                  {children}
+                  <main className="w-full max-w-2xl min-h-dvh mx-auto px-4">
+                    <Navbar />
+                    {children}
+                  </main>
                 </FontProvider>
               </ColorProvider>
             </ThemeProvider>

@@ -22,8 +22,7 @@ import ToggleButton from "../ui/ToggleButton";
 
 export default function UIShowcasePage() {
   return (
-    <div className="space-y-12 card">
-      <h2>Custom UI Showcase</h2>
+    <div className="space-y-5">
       <ModalSection />
       <ButtonSection />
       <DrawerSection />

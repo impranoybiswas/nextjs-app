@@ -1,17 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import {
-  MediaPlayer,
-  MediaProvider,
-  type MediaPlayerInstance,
-} from "@vidstack/react";
-import {
-  defaultLayoutIcons,
-  DefaultVideoLayout,
-} from "@vidstack/react/player/layouts/default";
-import "@vidstack/react/player/styles/default/theme.css";
-import "@vidstack/react/player/styles/default/layouts/video.css";
+import { useState } from "react"; // Adjust the import path based on your directory
+import VideoPlayer from "@/components/videoplayer/VideoPlayer";
 
 function detectVideoType(url: string): "youtube" | "hls" | "video" | null {
   if (!url) return null;
@@ -37,11 +27,10 @@ function detectVideoType(url: string): "youtube" | "hls" | "video" | null {
   return null;
 }
 
-export default function VideoPlayer() {
+export default function CustomVideoPlay() {
   const [inputUrl, setInputUrl] = useState("");
   const [activeUrl, setActiveUrl] = useState("");
   const [error, setError] = useState("");
-  const playerRef = useRef<MediaPlayerInstance>(null);
 
   const videoType = detectVideoType(activeUrl);
 
@@ -66,16 +55,8 @@ export default function VideoPlayer() {
     if (e.key === "Enter") handlePlay();
   }
 
-  // Build the src prop Vidstack expects
-  function buildSrc(url: string, type: "youtube" | "hls" | "video" | null) {
-    if (!type) return "";
-    if (type === "youtube") return url;
-    if (type === "hls") return { src: url, type: "application/x-mpegurl" };
-    return url;
-  }
-
   return (
-    <div className="max-w-4xl mx-auto w-full my-8 px-4 font-sans selection:bg-indigo-500/30">
+    <div>
       {/* Input section */}
       <div className="flex gap-2 mb-4">
         <input
@@ -100,7 +81,7 @@ export default function VideoPlayer() {
       )}
 
       {/* Player Frame Display */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden min-h-[420px] flex items-center justify-center transition-all duration-300 shadow-xl">
+      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex items-center justify-center transition-all duration-300 shadow-xl">
         {!activeUrl ? (
           <div className="text-center text-slate-500 p-12 max-w-sm">
             <span className="text-5xl block mb-3 animate-pulse filter drop-shadow-md">
@@ -115,16 +96,7 @@ export default function VideoPlayer() {
             </p>
           </div>
         ) : (
-          <MediaPlayer
-            ref={playerRef}
-            src={buildSrc(activeUrl, videoType) as string}
-            autoPlay
-            className="w-full aspect-video"
-            title="Video Player"
-          >
-            <MediaProvider />
-            <DefaultVideoLayout icons={defaultLayoutIcons} />
-          </MediaPlayer>
+          <VideoPlayer url={activeUrl} type={videoType} />
         )}
       </div>
     </div>

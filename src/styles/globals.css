@@ -58,7 +58,7 @@
 
 /* --- Interactive Input Fields --- */
 .input {
-  @apply w-full h-11 px-3.5 py-2 rounded-xl bg-foreground/4 border border-foreground/10 text-foreground placeholder:text-foreground/40 text-sm transition-all duration-200 focus:bg-background focus:border-primary/50 focus:outline-hidden focus:ring-2 focus:ring-primary/20;
+  @apply w-full flex-1 h-11 px-3.5 py-2 rounded-xl bg-foreground/4 border border-foreground/10 text-foreground placeholder:text-foreground/40 text-sm transition-all duration-200 focus:bg-background focus:border-primary/50 focus:outline-hidden focus:ring-2 focus:ring-primary/20;
 }
 
 .textarea {
@@ -133,12 +133,9 @@
 
 /* --- Icon & Circular Utility Actions --- */
 .btn-circle {
-  @apply w-10 h-10 p-0 rounded-full border border-foreground/10 flex items-center justify-center bg-background text-foreground hover:bg-foreground/5 active:scale-95 transition-all;
+  @apply w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center active:scale-95 transition-all cursor-pointer;
 }
 
-.btn-circular {
-  @apply w-8 h-8 p-0 rounded-full border border-foreground/10 flex items-center justify-center bg-background text-foreground opacity-75 hover:opacity-100 font-light text-xs transition-opacity;
-}
 
 /* ==========================================================================
    5. Keyframe Animations
