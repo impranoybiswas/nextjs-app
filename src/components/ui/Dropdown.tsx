@@ -415,7 +415,7 @@ export default function Dropdown({
               exit={{ opacity: 0, y: -8, scale: 0.96 }}
               transition={{ duration: 0.15, ease: "easeOut" }}
               className={`
-                absolute z-50 w-full min-w-56
+                absolute z-200 w-full min-w-56
                 ${positionStyles[position]}
                 bg-white dark:bg-gray-900
                 border border-gray-200 dark:border-gray-700

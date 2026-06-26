@@ -81,13 +81,13 @@ export default function CustomVideoPlay() {
       )}
 
       {/* Player Frame Display */}
-      <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden flex items-center justify-center transition-all duration-300 shadow-xl">
+      <div className="bg-black/50 border border-foreground/10 rounded-xl overflow-hidden flex items-center justify-center transition-all duration-300 shadow-xl">
         {!activeUrl ? (
-          <div className="text-center text-slate-500 p-12 max-w-sm">
+          <div className="text-center text-slate-500 aspect-video w-full flex flex-col items-center justify-center">
             <span className="text-5xl block mb-3 animate-pulse filter drop-shadow-md">
               📺
             </span>
-            <p className="text-base font-semibold text-slate-400 mb-1">
+            <p className="text-lg font-semibold text-slate-400">
               No Video Loaded
             </p>
             <p className="text-xs text-slate-500 leading-relaxed">

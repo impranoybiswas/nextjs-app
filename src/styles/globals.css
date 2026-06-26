@@ -45,7 +45,7 @@
 
 /* --- Layout Cards --- */
 .card {
-  @apply w-full p-6 rounded-xl bg-foreground/2 border border-foreground/10 shadow-xs flex flex-col backdrop-blur-md;
+  @apply w-full relative p-6 rounded-xl bg-foreground/2 border border-foreground/10 shadow-xs flex flex-col backdrop-blur-md;
 }
 
 .card h2 {
@@ -136,6 +136,10 @@
   @apply w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center active:scale-95 transition-all cursor-pointer;
 }
 
+/* --- Navbar --- */
+.nav-links {
+  @apply flex items-center gap-2;
+}
 
 /* ==========================================================================
    5. Keyframe Animations

@@ -72,7 +72,7 @@ export default function Home() {
       </div>
 
       {/* Custom Component */}
-      <div className="card">
+      <div className="card z-10">
         <h2 className="text-2xl font-bold mb-4">Custom Component</h2>
         <p>A custom component!</p>
         <CustomComponent />
