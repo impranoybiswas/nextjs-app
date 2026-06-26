@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import CustomComponent from "@/components/shared/CustomComponent";
 import CustomVideoPlay from "@/components/videoplayer/CustomVideoPlay";
 import GoogleSheetForm from "@/components/google-sheet/GoogleSheetForm";
+import GoogleSheetData from "@/components/google-sheet/GoogleSheetData";
 
 export default function Home() {
   const t = useTranslations("home");
@@ -89,6 +90,7 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-4">Google Sheet CRUD</h2>
         <p>Perform CRUD operations on a Google Sheet!</p>
         <GoogleSheetForm />
+        <GoogleSheetData />
       </div>
     </div>
   );

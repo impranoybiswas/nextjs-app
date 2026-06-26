@@ -119,7 +119,7 @@ export default function Modal({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           onClick={closeOnBackdrop ? handleClose : undefined}
-          aria-hidden="true"
+       
         >
           <motion.div
             ref={modalRef}
