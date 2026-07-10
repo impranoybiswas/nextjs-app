@@ -10,7 +10,6 @@ import ContactForm from "@/components/mailer/ContactForm";
 import AuthAppearance from "@/components/auth/AuthAppearance";
 import FormToPDF from "@/components/pdf-generate/FormToPDF";
 import { ImageKitUpload } from "@/components/imagekit/ImageKitUpload";
-import { toast } from "sonner";
 import CustomComponent from "@/components/shared/CustomComponent";
 import CustomVideoPlay from "@/components/videoplayer/CustomVideoPlay";
 import GoogleSheetForm from "@/components/google-sheet/GoogleSheetForm";
@@ -67,7 +66,7 @@ export default function Home() {
         <p>Upload an image to ImageKit!</p>
         <ImageKitUpload
           folder="test"
-          onUploadSuccess={() => toast.success("Image uploaded successfully!")}
+          onUploadSuccess={() => alert("Image uploaded successfully!")}
         />
       </div>
 
