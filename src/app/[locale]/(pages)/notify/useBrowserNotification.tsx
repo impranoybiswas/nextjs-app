@@ -1,56 +1,105 @@
+"use client";
+
+import { useEffect, useState, useCallback } from "react";
+
 export const useBrowserNotification = () => {
-  const sendNotification = async (title: string, options?: NotificationOptions) => {
-    console.log('[Notify] sendNotification called, title:', title);
+  // Initialize with null or a fallback to keep the initial server render safe
+  const [permission, setPermission] = useState<NotificationPermission | null>(
+    null,
+  );
+  const [isSupported, setIsSupported] = useState<boolean>(false);
 
-    // 1. Check browser supports notifications
-    if (!('Notification' in window)) {
-      console.error('[Notify] Notification API not found in window');
-      alert('Ei browser-e notification support kore na!');
-      return;
-    }
+  // 1. Safe Environment Initialization inside useEffect
+  useEffect(() => {
+    // Wrap initialization in a small timeout to let the initial render finish.
+    // This prevents the React strict warning: "Calling setState synchronously within an effect can trigger cascading renders"
+    const timer = setTimeout(() => {
+      const supported =
+        typeof window !== "undefined" && "Notification" in window;
+      setIsSupported(supported);
 
-    console.log('[Notify] Current permission:', Notification.permission);
-
-    // 2. If permission is default, ask for it
-    if (Notification.permission === 'default') {
-      try {
-        const permission = await Notification.requestPermission();
-        console.log('[Notify] Permission result:', permission);
-        if (permission === 'granted') {
-          trigger(title, options);
-        } else {
-          console.warn('[Notify] User did not grant permission:', permission);
-        }
-      } catch (err) {
-        console.error('[Notify] requestPermission threw an error:', err);
+      if (!supported) {
+        console.warn(
+          "[Notify] This browser does not support Web Notifications API.",
+        );
+        return;
       }
-    }
-    // 3. If already granted, trigger immediately
-    else if (Notification.permission === 'granted') {
-      trigger(title, options);
-    }
-    // 4. If blocked
-    else {
-      console.warn('[Notify] Permission is denied');
-      alert('Notification permission block kora! Browser URL bar theke eta allow koren.');
-    }
-  };
 
-  const trigger = (title: string, options?: NotificationOptions) => {
-    try {
+      // Directly read the status safely on the client mount
+      setPermission(Notification.permission);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 2. Request Permission Shorthand Function
+  const requestPermission =
+    useCallback(async (): Promise<NotificationPermission> => {
+      if (!isSupported) return "denied";
+
+      try {
+        const result = await Notification.requestPermission();
+        setPermission(result);
+        return result;
+      } catch (error) {
+        console.error(
+          "[Notify] Permission request intercepted or failed:",
+          error,
+        );
+        return "denied";
+      }
+    }, [isSupported]);
+
+  // 3. Isolated Native Trigger Utility
+  const triggerNativeNotification = useCallback(
+    (title: string, options?: NotificationOptions) => {
       const notif = new Notification(title, {
-        icon: '/next.svg',
+        icon: "/next.svg", // Default absolute or relative path to public asset
         ...options,
       });
-      console.log('[Notify] Notification object created:', notif);
 
-      notif.onclick = () => window.focus();
-      notif.onerror = (e) => console.error('[Notify] Notification error event:', e);
-      notif.onshow = () => console.log('[Notify] Notification shown successfully');
-    } catch (err) {
-      console.error('[Notify] new Notification() threw:', err);
-    }
+      notif.onclick = (e) => {
+        e.preventDefault();
+        window.focus();
+      };
+    },
+    [],
+  );
+
+  // 4. Exposed Execution Wrapper Function
+  const sendNotification = useCallback(
+    async (title: string, options?: NotificationOptions) => {
+      if (!isSupported) {
+        console.warn(
+          "[Notify] Target engine does not support client push hooks.",
+        );
+        return;
+      }
+
+      // Read live permission status to catch external browser setting modifications
+      const currentPermission = Notification.permission;
+
+      if (currentPermission === "granted") {
+        triggerNativeNotification(title, options);
+      } else if (currentPermission === "default") {
+        const result = await requestPermission();
+        if (result === "granted") {
+          triggerNativeNotification(title, options);
+        }
+      } else {
+        // Fallback or explicit warning for blocked/denied instances
+        alert(
+          "Notification permission is blocked! Please update settings in your browser address bar.",
+        );
+      }
+    },
+    [isSupported, requestPermission, triggerNativeNotification],
+  );
+
+  return {
+    sendNotification,
+    requestPermission,
+    permission,
+    isSupported,
   };
-
-  return { sendNotification };
 };

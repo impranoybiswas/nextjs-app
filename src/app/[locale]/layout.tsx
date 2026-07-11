@@ -11,6 +11,7 @@ import { FontProvider } from "@/providers/FontProvider";
 import { ThemeProvider } from "next-themes";
 import { ColorProvider } from "@/providers/ColorProvider";
 import Navbar from "@/components/shared/Navbar";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -37,7 +38,12 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={geist.variable} suppressHydrationWarning={false} suppressContentEditableWarning={false}>
+    <html
+      lang={locale}
+      className={geist.variable}
+      suppressHydrationWarning={false}
+      suppressContentEditableWarning={false}
+    >
       <body>
         <SessionProvider>
           <NextIntlClientProvider messages={messages}>
@@ -49,10 +55,12 @@ export default async function LocaleLayout({
             >
               <ColorProvider>
                 <FontProvider>
-                  <main className="w-full max-w-2xl min-h-dvh mx-auto px-4">
-                    <Navbar />
-                    {children}
-                  </main>
+                  <ToastProvider>
+                    <main className="w-full max-w-2xl min-h-dvh mx-auto px-4">
+                      <Navbar />
+                      {children}
+                    </main>
+                  </ToastProvider>
                 </FontProvider>
               </ColorProvider>
             </ThemeProvider>
